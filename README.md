@@ -37,6 +37,6 @@ THEN I am prompted to select an employee to update and their new role and this i
 ```
 
 ## Links
-Screencastify Video: 
+Screencastify Video: https://watch.screencastify.com/v/q2DdLUvgbDjBiVG3mS3n
 
 GitHub Repo: https://github.com/thegwanj/employee-tracker
