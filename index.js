@@ -1,3 +1,18 @@
+const mysql2 = require('mysql2');
+const utils = require('util');
+const inquirer = require('inquirer');
+
+const db = mysql2.createConnection(
+    {
+        host: 'localhost',
+        user: 'root',
+        password: 'password',
+        database: 'company_db'
+    }
+);
+
+db.query = utils.promisify(db.query);
+
 // View all departments
 // SELECT * FROM departments
 
