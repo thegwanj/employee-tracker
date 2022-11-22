@@ -2,6 +2,7 @@
 ## Table of Contents
 - [Description](#description)
 - [Links](#links)
+- [Issues](#issues)
 
 ## Description 
 Week 12 challenge where we will use our knowledge of SQL to create an app that can store and retrieve data related to employees. The following is the user story and acceptance criteria for the project:
@@ -40,3 +41,6 @@ THEN I am prompted to select an employee to update and their new role and this i
 Screencastify Video: https://watch.screencastify.com/v/q2DdLUvgbDjBiVG3mS3n
 
 GitHub Repo: https://github.com/thegwanj/employee-tracker
+
+## Issues
+As shown in the video, there are a few errors. When adding an employee, it does not actually get added to the database. Also, when attempting to add an employee, the program exits once all prompts are completed. When making new roles, the list of departments are not accurate if there are more than the starting departments.
