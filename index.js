@@ -13,6 +13,11 @@ const db = mysql2.createConnection(
 
 db.query = utils.promisify(db.query);
 
+// const createPost = async () => {
+//     const users = await db.query("SELECT * FROM users");
+//     console.log(users);
+// };
+
 // View all departments
 // SELECT * FROM departments
 
