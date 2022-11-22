@@ -8,16 +8,37 @@
 // SELECT * FROM employees
 
 // Create new departments
-// INSERT INTO departments (column names)
-// VALUES (values)
+// Prompt the user for the "name" of the department
+
+    // THEN run the query
+    // INSERT INTO departments (name)
+    // VALUES (values)
+
+        //THEN ask the user what they want to do next
+
 
 // Create new roles
-// INSERT INTO roles (column names)
-// VALUES (values)
+// Get the existing departments from the "departments" table
+    // THEN prompt the user for the "title", "salary", and "department_id" of the role
+
+        // THEN run the query
+        // INSERT INTO roles (title, salary, department_id)
+        // VALUES (values)
+
+            //THEN ask the user what they want to do next
+
 
 // Create new employees
-// INSERT INTO employees (column names)
-// VALUES (values)
+// Get the existing departments from the "departments" table
+// Get the existing roles from the "roles" table
+    // THEN prompt the user for the "first_name", "last_name", "role_id", and "manager_id" of the employee
+
+        // THEN run the query
+        // INSERT INTO employees (first_name, last_name, role_id, manager_id)
+        // VALUES (values)
+
+            //THEN ask the user what they want to do next
+
 
 // Update employee
 // UPDATE employees
