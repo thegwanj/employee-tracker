@@ -1,4 +1,4 @@
-const mysql2 = require('mysql2');
+const mysql2 = require('mysql2/promise');
 const utils = require('util');
 const inquirer = require('inquirer');
 
@@ -11,7 +11,18 @@ const db = mysql2.createConnection(
     }
 );
 
-db.query = utils.promisify(db.query);
+// Function that is run when we first run the program
+function initialPrompt(){
+    inquirer
+        .prompt([
+            {
+                message: "What would you like to do"
+            }
+        ])
+        .then((response) => {
+
+        });
+};
 
 // const createPost = async () => {
 //     const users = await db.query("SELECT * FROM users");
@@ -19,14 +30,15 @@ db.query = utils.promisify(db.query);
     //     name: user.username,
     //     value: user.id
     // }));
-//     console.log(usersChoices);
-//     const answers = inquirer.prompt([
-//          {
-//          message: "",
-//          name: "",
-//          type: ""
-//          },
-//     ]);
+//     console.table(usersChoices);
+
+// const answers = inquirer.prompt([
+//      {
+//      message: "",
+//      name: "",
+//      type: ""
+//      },
+// ]);
 // };
 
 /*
