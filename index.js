@@ -15,8 +15,26 @@ db.query = utils.promisify(db.query);
 
 // const createPost = async () => {
 //     const users = await db.query("SELECT * FROM users");
-//     console.log(users);
+    // const userChoices = users.map(user => ({
+    //     name: user.username,
+    //     value: user.id
+    // }));
+//     console.log(usersChoices);
+//     const answers = inquirer.prompt([
+//          {
+//          message: "",
+//          name: "",
+//          type: ""
+//          },
+//     ]);
 // };
+
+/*
+await db.query(
+    "INSERT INTO posts (title, content, author_id) VALUES"
+    [answers.title, answers.content, answers.author_id]
+);
+*/
 
 // View all departments
 // SELECT * FROM departments
