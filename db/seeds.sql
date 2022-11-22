@@ -1,5 +1,5 @@
--- Create seeds for the department table
+-- Create seeds for the departments table
 
--- Create seeds for the role table
+-- Create seeds for the roles table
 
--- Create seeds for the employee table
+-- Create seeds for the employees table

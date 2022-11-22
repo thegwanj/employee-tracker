@@ -1,4 +1,4 @@
 -- Create and use our database
 
 
--- Create department, role, and employee tables
+-- Create departments, roles, and employees tables
