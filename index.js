@@ -80,55 +80,107 @@ await db.query(
 
 // View all departments
 // SELECT * FROM departments
-// function viewDepartments(){
-    
-// }
 const viewDepartments = async () => {
     const departments = await db.query("SELECT * FROM departments");
-    console.log(departments);
+    console.table(departments);
+
+    initialPrompt();
 };
 
 // View all roles
 // SELECT * FROM roles
-function viewRoles(){
+const viewRoles = async () => {
+    const roles = await db.query("SELECT * FROM roles");
+    console.table(roles);
 
-}
+    initialPrompt();
+};
 
 // View all employees
 // SELECT * FROM employees
-function viewEmployees(){
+const viewEmployees = async () => {
+    const employees = await db.query("SELECT * FROM employees");
+    console.table(employees);
 
-}
+    initialPrompt();
+};
 
 // Create new departments
 function createDepartment(){
 // Prompt the user for the "name" of the department
+    //viewDepartments();
 
-    // THEN run the query
-    // INSERT INTO departments (name)
-    // VALUES (values)
+    inquirer
+        .prompt([
+            {
+                message: "What is the name of the department?",
+                name: "departmentName",
+                type: "input"
+            }
+        ])
+        .then((response) => {
+            db.query(`INSERT INTO departments(name) VALUES ("${response.departmentName}")`);
 
-        //THEN ask the user what they want to do next
-
-}
+            initialPrompt();
+        });
+};
 
 
 // Create new roles
-function createRole(){
-// Get the existing departments from the "departments" table
-    // THEN prompt the user for the "title", "salary", and "department_id" of the role
+function createRole() {
+    //viewRoles();
 
-        // THEN run the query
-        // INSERT INTO roles (title, salary, department_id)
-        // VALUES (values)
+    inquirer
+        .prompt([
+            {
+                message: "What is the title of the role?",
+                name: "roleTitle",
+                type: "input"
+            },
+            {
+                message: "What is the salary?",
+                name: "salary",
+                type: "input"
+            },
+            {
+                message: "What department does the role belong to?",
+                name: "roleDepartment",
+                type: "list",
+                choices: ["Meat", "Seafood", "Produce", "Front End"]
+            }
+        ])
+        .then((response) => {
+            switch(response.roleDepartment){
+                case "Meat":
+                    choice = 1;
+                    break;
+                case "Seafood":
+                    choice = 2;
+                    break;
+                case "Produce":
+                    choice = 3;
+                    break;
+                case "Front End":
+                    choice = 4;
+                    break;
+            };
+            db.query(`INSERT INTO roles(name)
+            VALUES ("${response.roleTitle}", ${response.salary}, ${choice})`);
 
-            //THEN ask the user what they want to do next
-
-}
+            initialPrompt();
+        });
+};
 
 
 // Create new employees
 function createEmployee(){
+    inquirer
+        .prompt([
+
+        ])
+        .then((response) => {
+            initialPrompt();
+        });
 // Get the existing departments from the "departments" table
 // Get the existing roles from the "roles" table
     // THEN prompt the user for the "first_name", "last_name", "role_id", and "manager_id" of the employee
@@ -139,12 +191,19 @@ function createEmployee(){
 
             //THEN ask the user what they want to do next
 
-}
+};
 
 
 // Update employee
 function updateEmployee(){
+    inquirer
+        .prompt([
+
+        ])
+        .then((response) => {
+            initialPrompt();
+        });
 // UPDATE employees
 // SET column1 = value, column2 = value
 // WHERE (conditional)
-}
+};
