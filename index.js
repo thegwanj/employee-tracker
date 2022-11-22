@@ -11,7 +11,7 @@ const db = mysql2.createConnection(
     }
 );
 
-db.query = utils.promisify(db.query);
+//db.query = utils.promisify(db.query);
 
 initialPrompt();
 
@@ -54,55 +54,40 @@ function initialPrompt(){
         });
 };
 
-// const createPost = async () => {
-//     const users = await db.query("SELECT * FROM users");
-    // const userChoices = users.map(user => ({
-    //     name: user.username,
-    //     value: user.id
-    // }));
-//     console.table(usersChoices);
-
-// const answers = inquirer.prompt([
-//      {
-//      message: "",
-//      name: "",
-//      type: ""
-//      },
-// ]);
-// };
-
-/*
-await db.query(
-    "INSERT INTO posts (title, content, author_id) VALUES"
-    [answers.title, answers.content, answers.author_id]
-);
-*/
-
 // View all departments
 // SELECT * FROM departments
-const viewDepartments = async () => {
-    const departments = await db.query("SELECT * FROM departments");
-    console.table(departments);
-
-    initialPrompt();
+function viewDepartments() {
+    db.query(`SELECT * FROM departments`, function (err, results) {
+        if(err){
+            console.log(err);
+        }
+        console.table(results);
+        initialPrompt();
+    });
 };
 
 // View all roles
 // SELECT * FROM roles
-const viewRoles = async () => {
-    const roles = await db.query("SELECT * FROM roles");
-    console.table(roles);
-
-    initialPrompt();
+function viewRoles() {
+    db.query(`SELECT * FROM roles`, function (err, results) {
+        if(err){
+            console.log(err);
+        }
+        console.table(results);
+        initialPrompt();
+    });
 };
 
 // View all employees
 // SELECT * FROM employees
-const viewEmployees = async () => {
-    const employees = await db.query("SELECT * FROM employees");
-    console.table(employees);
-
-    initialPrompt();
+function viewEmployees() {
+    db.query(`SELECT * FROM employees`, function (err, results) {
+        if(err){
+            console.log(err);
+        }
+        console.table(results);
+        initialPrompt();
+    });
 };
 
 // Create new departments
@@ -164,7 +149,7 @@ function createRole() {
                     choice = 4;
                     break;
             };
-            db.query(`INSERT INTO roles(name)
+            db.query(`INSERT INTO roles(title, salary, department_id)
             VALUES ("${response.roleTitle}", ${response.salary}, ${choice})`);
 
             initialPrompt();
@@ -176,21 +161,95 @@ function createRole() {
 function createEmployee(){
     inquirer
         .prompt([
-
+            {
+                message: "What is the FIRST name of the employee?",
+                name: "firstName",
+                type: "input"
+            },
+            {
+                message: "What is the LAST name of the employee?",
+                name: "lastName",
+                type: "input"
+            },
+            {
+                message: "What is this employee's role?",
+                name: "role",
+                type: "list",
+                choices: ["Meat Manager", "Meat Clerk", "Seafood Manager", "Seafood Clerk", "Produce Manager", "Produce Stocker", "Shift Lead", "Cashier", "Customer Service"]
+            },
+            {
+                message: "What is the employee's manager?",
+                name: "manager",
+                type: "list",
+                choices: ["John Doe", "Jane Doe", "Billy B", "Bob B", "Joe J", "Mike Chan", "Ashley Rodriguez", "Kevin Tupik", "Kunal Singh"]
+            }
         ])
         .then((response) => {
+            let role, manager;
+            switch(response.role){
+                case "Meat Manager":
+                    role = 1;
+                    break;
+                case "Meat Clerk":
+                    role = 2;
+                    break;
+                case "Seafood Manager":
+                    role = 3;
+                    break;
+                case "Seafood Clerk":
+                    role = 4;
+                    break;
+                case "Produce Manager":
+                    role = 5;
+                    break;
+                case "Produce Stocker":
+                    role = 6;
+                    break;
+                case "Shift Lead":
+                    role = 7;
+                    break;
+                case "Cashier":
+                    role = 8;
+                    break;
+                case "Customer Service":
+                    role = 9;
+                    break;
+                };
+            switch(response.manager){
+                case "John Doe":
+                    manager = 1;
+                    break;
+                case "Jane Doe":
+                    manager = 2;
+                    break;
+                case "Billy B":
+                    manager = 3;
+                    break;
+                case "Bob B":
+                    manager = 4;
+                    break;
+                case "Joe J":
+                    manager = 5;
+                    break;
+                case "Mike Chan":
+                    manager = 6;
+                    break;
+                case "Ashley Rodriguez":
+                    manager = 7;
+                    break;
+                case "Kevin Tupik":
+                    manager = 8;
+                    break;
+                case "Kunal Singh":
+                    manager = 9;
+                    break;
+            };
+
+            db.query(`INSERT INTO roles(first_name, last_name, role_id, manager_id)
+            VALUES ("${response.firstName}", "${response.lastName}", ${role}, ${manager})`);
+
             initialPrompt();
         });
-// Get the existing departments from the "departments" table
-// Get the existing roles from the "roles" table
-    // THEN prompt the user for the "first_name", "last_name", "role_id", and "manager_id" of the employee
-
-        // THEN run the query
-        // INSERT INTO employees (first_name, last_name, role_id, manager_id)
-        // VALUES (values)
-
-            //THEN ask the user what they want to do next
-
 };
 
 
@@ -198,12 +257,84 @@ function createEmployee(){
 function updateEmployee(){
     inquirer
         .prompt([
-
+            {
+                message: "Which employee's role would you like to update?",
+                name: "employee",
+                type: "list",
+                choices: ["John Doe", "Jane Doe", "Billy B", "Bob B", "Joe J", "Mike Chan", "Ashley Rodriguez", "Kevin Tupik", "Kunal Singh"]
+            },
+            {
+                message: "What is this employee's role?",
+                name: "role",
+                type: "list",
+                choices: ["Meat Manager", "Meat Clerk", "Seafood Manager", "Seafood Clerk", "Produce Manager", "Produce Stocker", "Shift Lead", "Cashier", "Customer Service"]
+            },
         ])
         .then((response) => {
+            let role, employee;
+            switch(response.role){
+                case "Meat Manager":
+                    role = 1;
+                    break;
+                case "Meat Clerk":
+                    role = 2;
+                    break;
+                case "Seafood Manager":
+                    role = 3;
+                    break;
+                case "Seafood Clerk":
+                    role = 4;
+                    break;
+                case "Produce Manager":
+                    role = 5;
+                    break;
+                case "Produce Stocker":
+                    role = 6;
+                    break;
+                case "Shift Lead":
+                    role = 7;
+                    break;
+                case "Cashier":
+                    role = 8;
+                    break;
+                case "Customer Service":
+                    role = 9;
+                    break;
+                };
+            switch(response.employee){
+                case "John Doe":
+                    employee = 1;
+                    break;
+                case "Jane Doe":
+                    employee = 2;
+                    break;
+                case "Billy B":
+                    employee = 3;
+                    break;
+                case "Bob B":
+                    employee = 4;
+                    break;
+                case "Joe J":
+                    employee = 5;
+                    break;
+                case "Mike Chan":
+                    employee = 6;
+                    break;
+                case "Ashley Rodriguez":
+                    employee = 7;
+                    break;
+                case "Kevin Tupik":
+                    employee = 8;
+                    break;
+                case "Kunal Singh":
+                    employee = 9;
+                    break;
+            };
+            db.query(`
+            UPDATE employees
+            SET role_id = ${role}
+            WHERE id = ${employee}
+            `);
             initialPrompt();
         });
-// UPDATE employees
-// SET column1 = value, column2 = value
-// WHERE (conditional)
 };
